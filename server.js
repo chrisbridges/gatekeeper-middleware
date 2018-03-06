@@ -67,13 +67,9 @@ function gateKeeper(req, res, next) {
   const userInfo = req.get('x-username-and-password');
   const userInfoParsed = queryString.parse(userInfo);
   
-  const userMatch = USERS.find(function(user) {
-    return user.userName === userInfoParsed.userName && user.password === userInfoParsed.password;
+  req.user = USERS.find(function(usr) {
+    return usr.userName === userInfoParsed.userName && usr.password === userInfoParsed.password;
   });
-  
-  if (userMatch) {
-    //req.user = THAT_USER;
-  }
   
   next();
 }
